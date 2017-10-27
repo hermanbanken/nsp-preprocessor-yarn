@@ -19,10 +19,8 @@ Or, automating the nsp check upon testing:
     "posttest": "nsp check --preprocessor yarn"
   },
   "dependencies": {
-		"nsp": "git://github.com/nodesecurity/nsp.git#41f967f",
-		"nsp-preprocessor-yarn": "nsp-preprocessor-yarn"
-  },
-  "devDependencies": {
+    "nsp": "git://github.com/nodesecurity/nsp.git#41f967f",
+    "nsp-preprocessor-yarn": "nsp-preprocessor-yarn"
   }
 }
 ````
