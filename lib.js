@@ -2,11 +2,13 @@ const Lockfile = require('@yarnpkg/lockfile');
 
 function yarnParse(contents, packageJson) {
 	var result = Lockfile.parse(contents);
-	var dependencies = Object.keys(packageJson).reduce(function (acc, key) {
-		return typeof packageJson[key] === 'object' && key !== 'engines' ?
-			Object.assign(acc, packageJson[key]) :
-			acc;
-	}, {});
+	var dependencies = Object.keys(packageJson)
+		.filter(key => packageJson.hasOwnProperty(key))
+		.reduce(function (acc, key) {
+			return isDependenciesField(key, packageJson[key]) ?
+				Object.assign(acc, packageJson[key]) :
+				acc;
+		}, {});
 	return {
 		name: packageJson.name,
 		version: packageJson.version,
@@ -42,4 +44,20 @@ function buildTree(dependencies, yarn, path) {
 	}, {});
 }
 
-module.exports = { parse: parse, buildTree: buildTree };
+function isDependenciesField(key, object) {
+	return whitelist.indexOf(key) >= 0 && typeof object === 'object' && key !== 'engines';
+}
+
+const whitelist = [
+  'name',
+  'version',
+  'engine',
+  'dependencies',
+  'devDependencies',
+  'optionalDependencies',
+  'peerDependencies',
+  'bundleDependencies',
+  'bundledDependencies'
+];
+
+module.exports = { parse: yarnParse, buildTree: buildTree };

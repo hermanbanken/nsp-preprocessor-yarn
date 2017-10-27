@@ -339,9 +339,9 @@ npm-run-path@^2.0.0:
   dependencies:
     path-key "^2.0.0"
 
-nsp@^3.00:
+"nsp@git://github.com/nodesecurity/nsp.git#41f967f":
   version "3.0.0"
-  resolved "https://registry.yarnpkg.com/nsp/-/nsp-3.0.0.tgz#cc3a26e273da2c0db0982274516697b4eb2c4df3"
+  resolved "git://github.com/nodesecurity/nsp.git#41f967f85b27f71832a1310a0854c6b48c9526d9"
   dependencies:
     chalk "^2.1.0"
     cli-table2 "^0.2.0"

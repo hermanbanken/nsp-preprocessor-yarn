@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/test.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,6 +12,6 @@
     "@yarnpkg/lockfile": "^1.0.0"
   },
   "devDependencies": {
-    "nsp": "^3.00"
+    "nsp": "git://github.com/nodesecurity/nsp.git#41f967f"
   }
 }
