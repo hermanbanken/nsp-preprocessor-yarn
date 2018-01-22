@@ -6,6 +6,7 @@
   "scripts": {
     "test": "node test/test.js"
   },
+  "repository": "github:hermanbanken/nsp-preprocessor-yarn",
   "author": "",
   "license": "ISC",
   "dependencies": {
