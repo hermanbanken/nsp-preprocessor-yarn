@@ -13,10 +13,13 @@ const tests = [
 	() => Promise.resolve().then(() => YarnPreprocessor.check({ path: join(process.cwd(), "test/data/outdated") })).then(() => {
 		throw new Error("Should report yarn.lock files that are not in sync with package.json.");
 	}, (err) => {
-		if (err.message.indexOf("Unable to load yarn.lock for project: outdated") >= 0) {
-			return "outdated";
+		if (err.message.indexOf("Unable to load yarn.lock for project \"outdated\"") < 0) {
+			throw err;
 		}
-		throw err;
+		if (err.message.indexOf("yarn.lock is outdated") < 0) {
+			throw err;
+		}
+		return "outdated"
 	}),
 ].map(t => t().then(result => [null, result], err => [err, null]));
 
