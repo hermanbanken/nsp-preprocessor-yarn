@@ -1,16 +1,24 @@
 const YarnPreprocessor = require("../index");
 const join = require("path").join;
+const Fs = require('fs');
+
+function opts(path) {
+	return {
+		path: join(process.cwd(), path),
+		pkg: JSON.parse(Fs.readFileSync(join(process.cwd(), path, "test.package.json")))
+	}
+}
 
 const tests = [
-	() => Promise.resolve().then(() => YarnPreprocessor.check({ path: join(process.cwd(), "test/data/sample") })).then(args => {
+	() => Promise.resolve().then(() => YarnPreprocessor.check(opts("test/data/sample"))).then(args => {
 		if (!args || !args.shrinkwrap) { throw new Error("should add shrinkwrap"); }
 		return "sample";
 	}),
-	() => Promise.resolve().then(() => YarnPreprocessor.check({ path: join(process.cwd(), "test/data/circular") })).then(args => {
+	() => Promise.resolve().then(() => YarnPreprocessor.check(opts("test/data/circular"))).then(args => {
 		if (!args || !args.shrinkwrap) { throw new Error("should add shrinkwrap"); }
 		return "circular";
 	}),
-	() => Promise.resolve().then(() => YarnPreprocessor.check({ path: join(process.cwd(), "test/data/outdated") })).then(() => {
+	() => Promise.resolve().then(() => YarnPreprocessor.check(opts("test/data/outdated"))).then(() => {
 		throw new Error("Should report yarn.lock files that are not in sync with package.json.");
 	}, (err) => {
 		if (err.message.indexOf("Unable to load yarn.lock for project \"outdated\"") < 0) {
@@ -21,7 +29,7 @@ const tests = [
 		}
 		return "outdated"
 	}),
-	() => Promise.resolve().then(() => YarnPreprocessor.check({ path: join(process.cwd(), "test/data/workspace/package-1"), lockfile: "../yarn.lock" })).then((args) => {
+	() => Promise.resolve().then(() => YarnPreprocessor.check(Object.assign(opts("test/data/workspace/package-1"), { lockfile: "../yarn.lock" }))).then((args) => {
 		if (!args || !args.shrinkwrap) { throw new Error("should add shrinkwrap"); }
 		if (!args.shrinkwrap.dependencies.marked.dependencies.request) { throw new Error("should find nested dependencies from the workspace yarn.lock"); }
 		return "workspace-package-vulnerable"

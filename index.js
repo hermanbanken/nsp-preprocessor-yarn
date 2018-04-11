@@ -6,7 +6,11 @@ module.exports = {
 	check: function (args) {
 		let pkg;
 		try {
-			pkg = JSON.parse(Fs.readFileSync(Path.join(args.path, 'package.json')));
+			let pkgfile = 'package.json';
+			if (args.packagejsonfile) {
+				pkgfile = args.packagejsonfile;
+			}
+			pkg = args.pkg || JSON.parse(Fs.readFileSync(Path.join(args.path, pkgfile)));
 		} catch (err) {
 			return Promise.reject(new Error(`Unable to load package.json for project: ${Path.basename(args.path)}`));
 		}
