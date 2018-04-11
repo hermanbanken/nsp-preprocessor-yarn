@@ -25,7 +25,20 @@ const tests = [
 			errors.push("Should report yarn.lock files that are not in sync with package.json." + err + stderr + stdout);
 		} else { oks.push("outdated"); }
 		finish();
+	}),
+	exec("nsp --preprocessor yarn check --lockfile ../yarn.lock", { cwd: join(process.cwd(), "test/data/workspace/package-1") }, (err, stdout, stderr) => {
+		if (!contains(stderr, stdout, "3 vulnerabilities found")) {
+			errors.push("Should report vulnerabilities from yarn.lock.");
+		} else { oks.push("workspace-package-1"); }
+		finish();
+	}),
+	exec("nsp --preprocessor yarn check --lockfile ../yarn.lock", { cwd: join(process.cwd(), "test/data/workspace/package-2") }, (err, stdout, stderr) => {
+		if (!contains(stderr, stdout, "No known vulnerabilities found")) {
+			errors.push("Should not report vulnerabilities of other packages in the workspaces yarn.lock.");
+		} else { oks.push("workspace-package-2"); }
+		finish();
 	})
+
 ];
 
 function finish() {

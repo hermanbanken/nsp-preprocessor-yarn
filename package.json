@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node test/test.js"
+    "test": "node test/test.js",
+    "test:integration": "node test/integration.js"
   },
   "repository": "github:hermanbanken/nsp-preprocessor-yarn",
   "author": "",

@@ -24,3 +24,12 @@ Or, automating the nsp check upon testing:
   }
 }
 ````
+
+## Workspaces
+This preprocessor supports workspaces too: specify the `--lockfile` flag:
+
+````bash
+touch workspace/yarn.lock
+cd workspace/my-package-1
+nsp check --preprocessor yarn --lockfile ../yarn.lock
+````

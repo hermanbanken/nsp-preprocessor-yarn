@@ -1,0 +1,9 @@
+{
+  "name": "package-1",
+  "version": "1.0.0",
+  "description": "Has vulnerable dependencies",
+  "dependencies": {
+    "marked": "0.3.3",
+    "dummy": "0.0.0"
+  }
+}

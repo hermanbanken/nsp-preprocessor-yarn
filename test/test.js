@@ -21,6 +21,11 @@ const tests = [
 		}
 		return "outdated"
 	}),
+	() => Promise.resolve().then(() => YarnPreprocessor.check({ path: join(process.cwd(), "test/data/workspace/package-1"), lockfile: "../yarn.lock" })).then((args) => {
+		if (!args || !args.shrinkwrap) { throw new Error("should add shrinkwrap"); }
+		if (!args.shrinkwrap.dependencies.marked.dependencies.request) { throw new Error("should find nested dependencies from the workspace yarn.lock"); }
+		return "workspace-package-vulnerable"
+	}),
 ].map(t => t().then(result => [null, result], err => [err, null]));
 
 Promise.all(tests).then((results) => {
