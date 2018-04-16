@@ -26,7 +26,7 @@ Or, automating the nsp check upon testing:
 ````
 
 ## Workspaces
-This preprocessor supports workspaces too: specify the `--lockfile` flag:
+This preprocessor supports [Yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/#toc-why-would-you-want-to-do-this) too: specify the `--lockfile` flag:
 
 ````bash
 touch workspace/yarn.lock
