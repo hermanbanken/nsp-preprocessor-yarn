@@ -42,7 +42,7 @@ This preprocessor logs a short message, to indicate the processor has run, to le
 If you're parsing the output of the nsp run, and this message is annoying, you can disable the message by setting `--preprocess--silently`.
 
 ## Workspaces
-This preprocessor supports workspaces too: specify the `--lockfile` flag:
+This preprocessor supports [Yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/#toc-why-would-you-want-to-do-this) too: specify the `--lockfile` flag:
 
 ````bash
 touch workspace/yarn.lock
